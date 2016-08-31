@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+   <metadata minClientVersion="2.8.1">
+       <id>Comora</id>
+       <version>$version$</version>
+       <title>Comora</title>
+       <authors>Aloïs Deniel</authors>
+       <owners>Aloïs Deniel</owners>
+     <licenseUrl>https://github.com/aloisdeniel/Comora/blob/master/LICENSE</licenseUrl>
+     <projectUrl>https://github.com/aloisdeniel/Comora</projectUrl>
+     <iconUrl>https://github.com/aloisdeniel/Comora/blob/develop/Doc/Logo-ld.png</iconUrl>
+       <requireLicenseAcceptance>false</requireLicenseAcceptance>
+       <description>A simple 2D camera for Monogame.</description>
+       <summary>A simple 2D camera for Monogame.</summary>
+     <tags>monogame, camera, matrix, transform, viewport</tags>
+   </metadata>
+   <files>
+     <file src="..\Sources\Comora.Portable\bin\Release\Comora.dll" target="lib\portable-net45+win8+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Comora.dll" />
+     <file src="..\Sources\Comora.Portable\bin\Release\Comora.dll" target="lib\netstandard1.1\Comora.dll" />
+   </files>
+</package>
