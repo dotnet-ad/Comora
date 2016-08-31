@@ -15,7 +15,7 @@
      <tags>monogame, camera, matrix, transform, viewport</tags>
    </metadata>
    <files>
-     <file src="..\Sources\Comora.Portable\bin\Release\Comora.dll" target="lib\portable-net45+win8+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Comora.dll" />
-     <file src="..\Sources\Comora.Portable\bin\Release\Comora.dll" target="lib\netstandard1.1\Comora.dll" />
+     <file src="..\Sources\Comora\bin\Release\Comora.dll" target="lib\portable-net45+win8+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Comora.dll" />
+     <file src="..\Sources\Comora\bin\Release\Comora.dll" target="lib\netstandard1.1\Comora.dll" />
    </files>
 </package>
