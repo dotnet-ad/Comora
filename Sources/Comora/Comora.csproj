@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EF814457-2BEF-4D6E-BE2A-7E660EC8BBF6}</ProjectGuid>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Comora</RootNamespace>
+    <AssemblyName>Comora</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Profile78</TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <NoStdLib>false</NoStdLib>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <NoStdLib>false</NoStdLib>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Camera.cs" />
+    <Compile Include="Animations\CameraAnimationBuilder.cs" />
+    <Compile Include="Animations\ICameraAnimation.cs" />
+    <Compile Include="Animations\RelayCameraAnimation.cs" />
+    <Compile Include="Animations\MoveCameraAnimation.cs" />
+    <Compile Include="SpriteBatchExtensions.cs" />
+    <Compile Include="Animations\CameraAnimation.cs" />
+    <Compile Include="Utils\Curves.cs" />
+    <Compile Include="Animations\ZoomCameraAnimation.cs" />
+    <Compile Include="ResizeMode.cs" />
+    <Compile Include="Animations\ICameraAnimationBuilder.cs" />
+    <Compile Include="Animations\WaitCameraAnimation.cs" />
+    <Compile Include="Animations\CameraAnimationBuilderExtensions.cs" />
+    <Compile Include="Utils\Easing.cs" />
+    <Compile Include="Animations\ShakeCameraAnimation.cs" />
+    <Compile Include="ICamera.cs" />
+    <Compile Include="Animations\RotateCameraAnimation.cs" />
+    <Compile Include="Diagnostics\Grid.cs" />
+    <Compile Include="Diagnostics\IGrid.cs" />
+    <Compile Include="Diagnostics\FpsCounter.cs" />
+    <Compile Include="Diagnostics\IFpsCounter.cs" />
+    <Compile Include="Utils\PixelFont.cs" />
+    <Compile Include="Diagnostics\DebugLayer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="MonoGame.Framework">
+      <HintPath>..\packages\MonoGame.Framework.Portable.3.2.99.1-Beta\lib\portable-net40+sl50+win+wpa81+wp80+MonoAndroid10+MonoTouch10\MonoGame.Framework.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Animations\" />
+    <Folder Include="Utils\" />
+    <Folder Include="Diagnostics\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+</Project>
