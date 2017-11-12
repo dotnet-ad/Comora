@@ -5,6 +5,8 @@
 
 	public interface IGrid
 	{
+        bool IsVisible { get; set; }
+
 		void AddLines(double intervals, Color color, double width = 1);
 
 		void RemoveLines();

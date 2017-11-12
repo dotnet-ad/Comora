@@ -5,6 +5,8 @@
 
 	public interface IFpsCounter
 	{
+        bool IsVisible { get; set; }
+
 		float CurrentFramesPerSecond { get; }
 
 		void Update(GameTime gameTime);

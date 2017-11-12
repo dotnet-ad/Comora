@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Comora", "Comora\Comora.csproj", "{EF814457-2BEF-4D6E-BE2A-7E660EC8BBF6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Comora.Sample.macOS", "Comora.Sample.macOS\Comora.Sample.macOS.csproj", "{F2496309-6E07-4FFB-829C-B5B4F833525D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,5 +15,8 @@ Global
 		{EF814457-2BEF-4D6E-BE2A-7E660EC8BBF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF814457-2BEF-4D6E-BE2A-7E660EC8BBF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF814457-2BEF-4D6E-BE2A-7E660EC8BBF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2496309-6E07-4FFB-829C-B5B4F833525D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2496309-6E07-4FFB-829C-B5B4F833525D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2496309-6E07-4FFB-829C-B5B4F833525D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 EndGlobal

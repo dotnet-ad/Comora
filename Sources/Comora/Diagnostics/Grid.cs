@@ -39,7 +39,7 @@
 
 		public void AddLines(double intervals, Color color, double width = 1)
 		{
-			this.units.Add(new Unit()
+			this.units.Add(new Unit
 			{
 				Value = intervals,
 				Width = width,
@@ -52,7 +52,9 @@
 			this.units.Clear();
 		}
 
-		#endregion
+        #endregion
+
+        public bool IsVisible { get; set; } = true;
 
 		#region Lifecycle
 
@@ -68,50 +70,53 @@
 		}
 
 		Color bgColor = new Color(Color.Black, 0.5f);
-		Color bgLightColor = new Color(Color.Black, 0.2f);
 
-		public void Draw(SpriteBatch spriteBatch, Vector2 parralax)
+        public void Draw(SpriteBatch spriteBatch, Vector2 parralax)
 		{
+            if (!this.IsVisible)
+                return;
+            
 			if (this.pixel == null)
 				throw new InvalidOperationException("The grid 'LoadContent' must be invoked prior to any 'Draw'.");
 
-			var scale = this.camera.AbsoluteScale;
-			var angle = this.camera.AbsoluteAngle;
-			var offset = this.camera.ToScreen(0, 0);
+            var px = this.camera.Transform.AbsolutePosition.X;
+            var py = this.camera.Transform.AbsolutePosition.Y;
 
-			var w = this.camera.Width * scale.X;
-			var h = this.camera.Height * scale.Y;
+            var w = this.camera.Width * this.camera.Transform.AbsoluteScale.X;
+            var h = this.camera.Height * this.camera.Transform.AbsoluteScale.Y;
 
-			var translation = Matrix.CreateTranslation(new Vector3(offset.X, offset.Y, 0) * -0.5f);
-			var transform = translation * Matrix.CreateRotationZ(angle) * Matrix.Invert(translation);
-
-			spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, transform);
-
-			spriteBatch.Draw(this.pixel, new Rectangle(0, 0, (int)w, (int)h), bgLightColor);
+            spriteBatch.Begin(this.camera);
 
 			foreach (var unit in this.units)
 			{
-				var intervalX = unit.Value * scale.X;
-				var intervalY = unit.Value * scale.Y;
+				var intervalX = unit.Value;
+                var intervalY = unit.Value;
 
-				var startX = offset.X % intervalX;
-				var startY = offset.Y % intervalY;
+                var columns = 2 + (int)(w / intervalX);
+                var rows = 2 + (int)(h / intervalY);
 
-				for (double x = startX; x < w; x += intervalX)
+                var lw = w * intervalY;
+                var lh = h * intervalX;
+
+                var startX = ((int)(px / intervalX) * intervalX) - (1 + columns / 2) * intervalX;
+                var startY = ((int)(py / intervalY) * intervalY) - (1 + rows / 2) * intervalY;
+
+                for (int i = 0; i <= columns; i++)
 				{
-					spriteBatch.Draw(this.pixel, new Rectangle((int)(x - unit.Width / 2), 0, (int)(unit.Width), (int)h), unit.Color);
+                    var x = startX + i * intervalX;
+                    spriteBatch.Draw(this.pixel, new Rectangle((int)x, (int)startY, (int)(unit.Width), (int)lh), unit.Color);
 				}
 
-				for (double y = startY; y < h; y += intervalY)
-				{
-					spriteBatch.Draw(this.pixel, new Rectangle(0, (int)(y - unit.Width / 2), (int)w, (int)(unit.Width)), unit.Color);
+                for (int i = 0; i <= rows; i++)
+                {
+                    var y = startY + i * intervalY;
+                    spriteBatch.Draw(this.pixel, new Rectangle((int)startX, (int)y, (int)lw, (int)(unit.Width)), unit.Color);
 				}
 			}
 
 			spriteBatch.End();
 
-			var center = this.camera.ToWorld(w / 2, h / 2);
-			var message = $"{(int)center.X},{(int)center.Y}\nANGLE: {this.camera.Angle}\nZOOM: {this.camera.Scale}";
+            var message = $"{(int)px},{(int)py}\nANGLE: {this.camera.Transform.Rotation}\nZOOM: {this.camera.Zoom}";
 
 			spriteBatch.Begin(SpriteSortMode.Deferred,null,SamplerState.PointClamp);
 
@@ -128,4 +133,3 @@
 
 	}
 }
-

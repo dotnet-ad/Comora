@@ -1,6 +1,6 @@
 ﻿namespace Comora
 {
-	public enum ResizeMode
+	public enum AspectMode
 	{
 		Expand,
 		FillStretch,

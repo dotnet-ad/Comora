@@ -1,4 +1,4 @@
-﻿namespace Comora
+﻿namespace Comora.Diagnostics
 {
 	using System;
 	using System.Collections.Generic;
@@ -55,14 +55,12 @@
 		};
 
 		private const int LetterSpace = 1;
+
 		private const int LineSpace = 3;
+
 		private const int Space = 4;
 
 		private Dictionary<char, Texture2D> Textures;
-
-		public PixelFont()
-		{
-		}
 
 		public void LoadContent(GraphicsDevice device)
 		{

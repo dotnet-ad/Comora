@@ -32,7 +32,9 @@
 
 		public float CurrentFramesPerSecond { get; private set; }
 
-		public int MaximumSamples { get; }
+        public int MaximumSamples { get; }
+
+        public bool IsVisible { get; set; } = true;
 
 		#endregion
 
@@ -69,10 +71,17 @@
 
 		public void Draw(SpriteBatch sb)
 		{
+            if (!IsVisible)
+                return;
+            
+            sb.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
+
 			var message = ((int)this.CurrentFramesPerSecond).ToString();
 			var s = this.font.Measure(message, 15);
 
 			this.font.Draw(sb, new Vector2(this.camera.Width - s.X - 20, 20),message , Color.White,15);  
+
+            sb.End();
 		}
 
 		#endregion
