@@ -8,7 +8,7 @@
        <owners>Aloïs Deniel</owners>
      <licenseUrl>https://github.com/aloisdeniel/Comora/blob/master/LICENSE</licenseUrl>
      <projectUrl>https://github.com/aloisdeniel/Comora</projectUrl>
-     <iconUrl>https://github.com/aloisdeniel/Comora/blob/develop/Doc/Logo-ld.png</iconUrl>
+     <iconUrl>https://raw.githubusercontent.com/aloisdeniel/Comora/master/Documentation/Logo.png</iconUrl>
        <requireLicenseAcceptance>false</requireLicenseAcceptance>
        <description>A simple 2D camera for Monogame.</description>
        <summary>A simple 2D camera for Monogame.</summary>
