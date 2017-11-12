@@ -33,6 +33,7 @@
             Pixel.SetData(new Color[] { Color.White });
 			this.font.LoadContent(device);
             this.Grid.LoadContent(device);
+            this.FpsCounter.LoadContent(device);
 		}
 
         public void Update(GameTime gameTime)
@@ -49,9 +50,7 @@
                 sb.End();
 
                 this.FpsCounter.Draw(sb);
-
 				this.Grid.Draw(sb,parralax);
-
 				this.FpsCounter.Draw(sb);
 			}
 		}

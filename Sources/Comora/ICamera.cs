@@ -36,13 +36,25 @@
         /// <value>The transform.</value>
         Transform2D Transform { get; set; }
 
-        Transform2D Offset { get; }
+        Transform2D ViewportOffset { get; }
 
         /// <summary>
         /// Gets or sets the zoom level.
         /// </summary>
         /// <value>The zoom.</value>
         float Zoom { get; set; }
+
+        /// <summary>
+        /// Gets or sets the rotation.
+        /// </summary>
+        /// <value>The rotation.</value>
+        float Rotation { get; set; }
+
+        /// <summary>
+        /// Gets or sets the position.
+        /// </summary>
+        /// <value>The position.</value>
+        Vector2 Position { get; set; }
 
         /// <summary>
         /// Gets the layer that displays debugging information.
@@ -55,8 +67,6 @@
         #region Methods
 
         Rectangle GetBounds();
-
-        Rectangle GetBounds(Vector2 parralax);
 
         #region Conversions
 
@@ -86,7 +96,11 @@
         /// <param name="device">Device.</param>
         void LoadContent();
 
+        void Update(GameTime time);
+
         #endregion
+
+        ICamera Clone();
 
         #endregion
     }

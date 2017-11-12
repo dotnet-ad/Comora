@@ -9,6 +9,8 @@
 
 		float CurrentFramesPerSecond { get; }
 
+        void LoadContent(GraphicsDevice device);
+
 		void Update(GameTime gameTime);
 
 		void Draw(SpriteBatch sb);

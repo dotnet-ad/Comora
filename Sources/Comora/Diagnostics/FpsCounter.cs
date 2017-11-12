@@ -16,11 +16,15 @@
 
 		#region Fields
 
-		private readonly PixelFont font;
+        private readonly PixelFont font;
 
-		readonly Camera camera;
+        private Texture2D pixel;
 
-		private readonly Queue<float> sampleBuffer = new Queue<float>();
+		private readonly Camera camera;
+
+        private readonly Queue<float> sampleBuffer = new Queue<float>();
+
+        private static readonly Color bgColor = new Color(Color.Black, 0.5f);
 
 		#endregion
 
@@ -38,7 +42,13 @@
 
 		#endregion
 
-		#region Lifecycle
+        #region Lifecycle
+
+        public void LoadContent(GraphicsDevice device)
+        {
+            pixel = new Texture2D(device, 1, 1);
+            pixel.SetData(new Color[] { Color.White });
+        }
 
 		public void Reset()
 		{
@@ -47,7 +57,10 @@
 		}
 
 		public void Update(GameTime gameTime)
-		{
+        {
+            if (!IsVisible)
+                return;
+            
 			var deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
 			CurrentFramesPerSecond = 1.0f / deltaTime;
@@ -67,8 +80,6 @@
 			TotalFrames++;
 		}
 
-		Color bgColor = new Color(Color.Black, 0.5f);
-
 		public void Draw(SpriteBatch sb)
 		{
             if (!IsVisible)
@@ -79,7 +90,11 @@
 			var message = ((int)this.CurrentFramesPerSecond).ToString();
 			var s = this.font.Measure(message, 15);
 
-			this.font.Draw(sb, new Vector2(this.camera.Width - s.X - 20, 20),message , Color.White,15);  
+            var width = s.X + 20;
+            var bounds = new Rectangle((int)sb.GraphicsDevice.Viewport.Width - 20 - width, 20, width,  20 + s.Y);
+
+            sb.Draw(this.pixel, bounds, bgColor);
+            this.font.Draw(sb, new Vector2(bounds.X + 10, bounds.Y + 10),message , Color.White,15);  
 
             sb.End();
 		}
