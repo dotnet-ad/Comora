@@ -39,7 +39,7 @@ protected override void Draw(GameTime gameTime)
 	// Draw here
 	spriteBatch.End();
 
-	base. Draw(gameTime);
+	base.Draw(gameTime);
 }
 
 ```
@@ -59,41 +59,24 @@ spriteBatch.Begin(this.camera, new Vector2(0.85f,0.85f));
 ```
 ## Animations
 
-Trigger camera movements with various built-in or custom animations.
+You can add animation by applying [Transform](https://www.github.com/aloisdeniel/Transform) velocities or tweens onto the the camera's `Transform` property.
 
-* `camera.Move(TimeSpan duration, [Vector2 from = current,] Vector2 to, Easing.Mode easing)` : moves the camera to a given position.
-* `camera.Rotate(TimeSpan duration, [float from = current,] float to, Easing.Mode easing)` : rotates the camera to a given angle.
-* `camera.Zoom(TimeSpan duration, [float from = current,] float to, Easing.Mode easing)` : scales the camera to a given zoom level.
-* `camera.Shake(TimeSpan duration[, float intensity = 60])` : shakes the screen.
-
-
-You can chain animations with fluent APIs :
-
-```csharp
-camera.Move(TimeSpan.FromSeconds(2),new Vector2(300,200))
-	  .ThenWait(TimeSpan.FromSeconds(1))
-	  .ThenZoom(TimeSpan.FromSeconds(1),2, Easing.Mode.EaseOut)
-	  .ThenShake(TimeSpan.FromSeconds(0.5),100);
-```
-
-
-Finally, you can provide your own animations by using the base `Camera` methods or by providing `ICameraAnimation` implementation :
-
-```csharp
-camera.StartAnimation().Then(TimeSpan.FromSeconds(1), (cam,time) => cam.Position = new Vector2((float)time * 200, (float)time * 400));
-```
 ## Conversion
 
 You can convert a point from screen unit to world :
 
 ```csharp
-camera.ToWorld(Vector.Zero);
+var screenPosition = Vector.Zero;
+var worldPosition = Vector.Zero;
+camera.ToWorld(ref screenPosition, out worldPosition);
 ```
 
 Converting world coordinates to screen coordinates is also possible.
 
 ```csharp
-camera.ToScreen(Vector.Zero);
+var screenPosition = Vector.Zero;
+var worldPosition = Vector.Zero;
+camera.ToScreen(ref worldPosition, out screenPosition);
 ```
 
 ## Debug tools
@@ -137,7 +120,6 @@ camera.Debug.Grid.AddLines(200, Color.Red, 4);
 
 * Integrate shaders for easy screen effects.
 * Add more built-in animations.
-* Easier parralax management.
 * Clean and improve debug layer.
 
 ## Why?
