@@ -3,58 +3,92 @@
 	using Comora.Diagnostics;
 	using Microsoft.Xna.Framework;
 	using Microsoft.Xna.Framework.Graphics;
+    using Transform;
 
-	public interface ICamera
-	{
-		ResizeMode ResizeMode { get; set; }
+    /// <summary>
+    /// Represents a player camera.
+    /// </summary>
+    public interface ICamera
+    {
+        #region Properties
 
+        /// <summary>
+        /// Gets or sets the way the content fits the screen.
+        /// </summary>
+        /// <value>The resize mode.</value>
+        AspectMode ResizeMode { get; set; }
+
+        /// <summary>
+        /// Gets or sets the width of the screen.
+        /// </summary>
+        /// <value>The width.</value>
 	    float Width { get; set; }
 
+        /// <summary>
+        /// Gets or sets the height of the screen.
+        /// </summary>
+        /// <value>The height.</value>
 		float Height { get; set; }
 
-		Vector2 Position { get; set; }
+        /// <summary>
+        /// Gets or sets the transform of the camera (position, scale and rotation).
+        /// </summary>
+        /// <value>The transform.</value>
+        Transform2D Transform { get; set; }
 
-		float Angle { get; set; }
+        Transform2D Offset { get; }
 
-		float Scale { get; set; }
+        /// <summary>
+        /// Gets or sets the zoom level.
+        /// </summary>
+        /// <value>The zoom.</value>
+        float Zoom { get; set; }
 
-		float AngleOffset { get; set; }
-
-		Vector2 PositionOffset { get; set; }
-
-		float ScaleOffset { get; set; }
-
-		Vector2 AbsoluteScale { get; }
-
-		float AbsoluteAngle { get; }
-
-		Vector2 AbsolutePosition { get; }
-
+        /// <summary>
+        /// Gets the layer that displays debugging information.
+        /// </summary>
+        /// <value>The debug.</value>
 		DebugLayer Debug { get; }
 
-		Rectangle GetBounds();
+        #endregion
 
-		Rectangle GetBounds(Vector2 parralax);
+        #region Methods
 
-		Matrix CreateTransform();
+        Rectangle GetBounds();
 
-		Matrix CreateTransform(Vector2 parralax);
+        Rectangle GetBounds(Vector2 parralax);
 
-		Vector2 ToScreen(float x, float y);
+        #region Conversions
 
-		Vector2 ToScreen(Vector2 worldPosition);
+        /// <summary>
+        /// Converts absolute world to the screen relative coordinates.
+        /// </summary>
+        /// <returns>The screen coordinates.</returns>
+        /// <param name="worldPosition">A world absolute position.</param>
+        /// <param name="screenPosition">The local screen position.</param>
+        void ToScreen(ref Vector2 worldPosition, out Vector2 screenPosition);
 
-		Vector2 ToWorld(float x, float y);
+        /// <summary>
+        /// Converts relative coordinates to absolute world coordinate.
+        /// </summary>
+        /// <returns>The world coordinates.</returns>
+        /// <param name="screenPosition">The local screen position.</param>
+        /// <param name="worldPosition">A world absolute position.</param>
+        void ToWorld(ref Vector2 screenPosition, out Vector2 worldPosition);
 
-		Vector2 ToWorld(Vector2 screenPosition);
+        #endregion
 
-		bool IsAnimated { get; }
+        #region Lifecycle
 
-		ICameraAnimationBuilder StartAnimation();
+        /// <summary>
+        /// Loads the content.
+        /// </summary>
+        /// <param name="device">Device.</param>
+        void LoadContent();
 
-		void LoadContent(GraphicsDevice device);
+        #endregion
 
-		void Update(GameTime time);
-	}
+        #endregion
+    }
 }    
 
