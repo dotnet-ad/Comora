@@ -82,8 +82,10 @@
             var px = this.camera.Transform.AbsolutePosition.X;
             var py = this.camera.Transform.AbsolutePosition.Y;
 
-            var w = this.camera.Width * this.camera.Transform.AbsoluteScale.X;
-            var h = this.camera.Height * this.camera.Transform.AbsoluteScale.Y;
+            var bounds = this.camera.GetBounds();
+
+            var w = bounds.Width;
+            var h = bounds.Height;
 
             spriteBatch.Begin(this.camera);
 

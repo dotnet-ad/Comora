@@ -15,7 +15,7 @@ namespace Comora.Sample
 		GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
 		Texture2D pixel;
-		Camera camera;
+		ICamera camera, parralax;
 		List<Tuple<Rectangle, Color>> rectangles;
 		List<Tuple<Rectangle, Color>> rectangles2;
 
@@ -37,10 +37,13 @@ namespace Comora.Sample
 		protected override void Initialize()
 		{
 			this.camera = new Camera(this.graphics.GraphicsDevice);
-			//this.camera.Width = 400;
-			//this.camera.Height = 400;
+			this.camera.Width = 400;
+			this.camera.Height = 400;
+            this.camera.ResizeMode = AspectMode.FillUniform;
 			this.camera.Debug.Grid.AddLines(50, Color.White, 2);
 			this.camera.Debug.Grid.AddLines(200, Color.Cyan, 4);
+
+            this.parralax = this.camera.Clone();
 
 			var random = new Random();
 			this.rectangles = new List<Tuple<Rectangle, Color>>();
@@ -98,20 +101,22 @@ namespace Comora.Sample
 			{
                 var position = Mouse.GetState().Position.ToVector2();
                 position -= new Vector2(this.GraphicsDevice.Viewport.Width, this.GraphicsDevice.Viewport.Height) / 2;
-                Debug.WriteLine($"POS:{position}");
+
                 this.camera.Position = position;
+                this.parralax.Position = position * 0.85f;
 			}
 
             if (Keyboard.GetState().IsKeyDown(Keys.Z))
             {
                 var zoom = Math.Max(0.1, Mouse.GetState().Position.ToVector2().Y / this.camera.Height);
                 this.camera.Zoom = (float)zoom;
+                this.parralax.Zoom = (float)zoom;
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.R))
             {
                 var r = Math.Max(0, Mouse.GetState().Position.ToVector2().Y / this.camera.Height) * Math.PI * 2;
-                this.camera.Rotation = (float)r;
+                this.camera.Rotation = this.parralax.Rotation = (float)r;
             }
 
 			if (!this.previousState.IsKeyDown(Keys.Enter) && state.IsKeyDown(Keys.Enter))
@@ -122,11 +127,17 @@ namespace Comora.Sample
 			if (!this.previousState.IsKeyDown(Keys.G) && state.IsKeyDown(Keys.G))
 			{
 				this.camera.Debug.IsVisible = !this.camera.Debug.IsVisible;
-			}
+            }
+
+            if (!this.previousState.IsKeyDown(Keys.M) && state.IsKeyDown(Keys.M))
+            {
+                this.camera.ResizeMode = (AspectMode)((((int)this.camera.ResizeMode) + 1) % 3);
+                Debug.WriteLine($"MODE:{this.camera.ResizeMode}");
+            }
 
 			this.previousState = state;
 
-            this.camera.Debug.Update(gameTime);
+            this.camera.Update(gameTime);
 
 			base.Update(gameTime);
 		}
@@ -139,7 +150,7 @@ namespace Comora.Sample
 		{
 			graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
 
-			spriteBatch.Begin(this.camera, new Vector2(0.85f, 0.85f));
+            spriteBatch.Begin(this.parralax);
 
 			foreach (var rect in this.rectangles)
 			{
@@ -160,13 +171,12 @@ namespace Comora.Sample
 				spriteBatch.Draw(pixel, rect.Item1, rect.Item2);
 			}
 
-            var size = new Vector2(20,20);
-            spriteBatch.Draw(pixel, position: this.camera.Offset.AbsolutePosition,scale: size, color: Color.Red, rotation: 1);
-
+            var size = new Vector2(6,6);
+            spriteBatch.Draw(pixel, position: this.camera.Transform.AbsolutePosition - new Vector2(3, 3),scale: size, color: Color.Red, rotation: 0);
 
 			spriteBatch.End();
 
-			this.spriteBatch.Draw(gameTime, this.camera.Debug);
+			this.spriteBatch.Draw(this.camera.Debug);
 
 			base.Draw(gameTime);
 		}
